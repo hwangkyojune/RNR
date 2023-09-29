@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="text-align:center">
+    <div>
+        <h1><a th:href="|/|">[[${pageName}]]</a></h1> <hr/>
+    </div>
+
+    <div th:if="${name == null}">
+        <h3>로그인 되어 있지 않습니다.</h3>
+        <button th:onclick="|location.href='@{/join}'|">회원가입</button><br/><br/>
+        <button th:onclick="|location.href='@{/login}'|">로그인</button>
+    </div>
+
+    <div th:unless="${name == null}">
+        <h3>[[${name}]]님 환영합니다.</h3>
+        <button th:onclick="|location.href='@{/info}'|">유저 정보</button> <br/><br/>
+        <button th:onclick="|location.href='@{/logout}'|">로그아웃</button>
+    </div>
+</div>
+
+</body>
+</html>

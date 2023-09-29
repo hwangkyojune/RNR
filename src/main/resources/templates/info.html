@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="text-align:center">
+    <h1><a th:href="@{/}">[[${pageName}]]</a></h1>
+    <h2>유저 정보</h2>
+    <div>
+        <div th:text="|로그인 아이디 : ${member.getLoginId()}|"></div>
+        <div th:text="|이름 : ${member.getName()}|"></div>
+    </div>
+</div>
+
+</body>
+</html>
