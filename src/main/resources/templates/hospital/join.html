@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="|${appName}|"></title>
+</head>
+<body>
+<div style="text-align:center">
+  <h1><a th:href="|/|">[[${appName}]]</a></h1> <hr/>
+  <form th:method="post" th:action="|/hospital/join|" th:object="${hospitalJoinDto}">
+    <div>
+      <label th:for="id">아이디 : </label>
+      <input type="text" th:field="*{id}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{id}"></div>
+    </div>
+    <br/>
+    <div>
+      <label th:for="pw">비밀번호 : </label>
+      <input type="password" th:field="*{pw}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{pw}"></div>
+    </div>
+    <br/>
+    <div>
+      <label th:for="pwCheck">비밀번호 재확인 : </label>
+      <input type="password" th:field="*{pwCheck}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{pwCheck}"></div>
+    </div>
+    <br/>
+    <div>
+      <label th:for="name">이름 : </label>
+      <input type="text" th:field="*{name}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{name}"></div>
+    </div>
+    <br/>
+    <div>
+      <label th:for="nickname">연락처 : </label>
+      <input type="text" th:field="*{contactInfo}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{contactInfo}"></div>
+    </div>
+    <br/>
+    <button type="submit">회원 가입</button>
+  </form>
+</div>
+</body>
+</html>
+
+<style>
+  .error-class {
+    color: red;
+  }
+  .error-input {
+    border-color: red;
+  }
+</style>

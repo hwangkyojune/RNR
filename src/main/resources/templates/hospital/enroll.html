@@ -1,0 +1,67 @@
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+
+<title>의사 등록</title>
+
+
+<style>
+  div.mytable {
+    margin: auto;
+    width: 1020px;
+    padding: 10px;
+  }
+</style>
+
+
+<div class="mytable">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <h1><a href="/hospital/">[[${appName}]]</a></h1>
+    </ol>
+  </nav>
+</div>
+
+<h1>등록 요청 현황</h1>
+
+<table class="table table-striped table-primary">
+
+  <thead class="ttop">
+  <tr class="table-info">
+    <td width="100px"><b> 의사 아이디</b></td>
+    <td><b>의사 이름</b> </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="idNameDto, iStat : ${idNameDtosNotEnrolled}" th:style="${iStat.odd}? 'font-weight: normal;'">
+    <td width="20px" th:text="${idNameDto.id}"></td>
+    <td th:text="${idNameDto.name}"></td>
+    <td>
+    <form th:action="|/hospital/enroll|" th:object="${idNameDto}" method="post">
+      <input type="hidden" name="id" th:value="${idNameDto.id}">
+      <input type="hidden" name="name" th:value="${idNameDto.name}">
+      <button type="submit" th:name="action" th:value="enroll">등록하기</button>
+      <button type="submit" th:name="action" th:value="delete">삭제하기</button>
+    </form>
+  </td>
+  </tr>
+  </tbody>
+</table>
+
+<h1>등록 의사 현황</h1>
+
+<table>
+
+  <thead class="ttop">
+  <tr class="table-info">
+    <td width="100px"><b> 의사 아이디</b></td>
+    <td><b>의사 이름</b> </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="idNameDto, iStat : ${idNameDtosAlreadEnrolled}" th:style="${iStat.odd}? 'font-weight: normal;'">
+    <td width="20px" th:text="${idNameDto.id}"></td>
+    <td th:text="${idNameDto.name}"></td>
+  </tr>
+  </tbody>
+</table>
+

@@ -7,10 +7,10 @@
 <body>
 <div style="text-align:center">
     <div>
-        <h1><a th:href="|/|">[[${pageName}]]</a></h1> <hr/>
+        <h1><a th:href="|/|">[[${appName}]]</a></h1> <hr/>
     </div>
 
-    <div th:if="${name == null}">
+    <div th:if="${name} == null">
         <h3>로그인 되어 있지 않습니다.</h3>
         <button th:onclick="|location.href='@{/join}'|">회원가입</button><br/><br/>
         <button th:onclick="|location.href='@{/login}'|">로그인</button>
@@ -18,9 +18,24 @@
 
     <div th:unless="${name == null}">
         <h3>[[${name}]]님 환영합니다.</h3>
-        <button th:onclick="|location.href='@{/info}'|">유저 정보</button> <br/><br/>
-        <button th:onclick="|location.href='@{/logout}'|">로그아웃</button>
+        <button th:onclick="|location.href='@{/logout}'|">로그아웃</button><br/><br/>
+        <div th:if="${userTypeId==1}">
+            <button th:onclick="|location.href='@{/patient/prescription}'|">내 처방기록 조회하기</button>
+        </div>
+        <div th:if="${userTypeId==2}">
+            <button th:onclick="|location.href='@{/doctor/prescription}'|">환자 처방하기</button>
+            <button th:onclick="|location.href='@{/doctor/check}'|">환자 처방 기록 조회하기</button>
+            <button th:onclick="|location.href='@{/doctor/amount}'|">병원 약물 보유 조회하기</button><br/><br/>
+            <div th:if="${hospital_id==null}">
+                <button th:onclick="|location.href='@{/doctor/enroll}'|">병원 등록하기</button>
+            </div>
+        </div>
     </div>
+</div>
+<br/>
+<br/>
+<div>
+    <button th:onclick="|location.href='@{/hospital/}'|">병원 전용 페이지로 이동</button><br/><br/>
 </div>
 
 </body>

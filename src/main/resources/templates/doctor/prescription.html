@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div>
+
+  <h1><a href="/">[[${appName}]]</a></h1>
+
+  <h2>보유 약물</h2>
+
+  <table>
+    <thead class="ttop">
+    <tr class="table-info">
+      <td width="200px"><b>약물 이름</b></td>
+      <td><b>보유량(mg)</b></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="drugAmountDto, iStat : ${drugAmountDtos}" th:style="${iStat.odd}? 'font-weight: normal;'">
+      <td width="20px" th:text="${drugAmountDto.drugName}"></td>
+      <td th:text="${drugAmountDto.amount}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <form th:method="post" th:action="|/doctor/prescription|" th:object="${prescriptionDto}">
+    <div>
+      <label th:for="id">아이디 : </label>
+      <input type="text" th:field="*{patientId}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{patientId}"></div>
+    </div>
+    <br/>
+    <div>
+      <label th:for="pw">비밀번호 : </label>
+      <input type="password" th:field="*{patientPw}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{patientPw}"></div>
+    </div>
+    <br/>
+    <div>
+      <label th:for="drugName">약물 이름 : </label>
+      <input type="text" th:field="*{drugName}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{drugName}"></div>
+    </div>
+    <br/>
+    <div>
+      <label th:for="name">처방량 : </label>
+      <input type="text" th:field="*{amount}" th:errorclass="error-input"/>
+      <div class="error-class" th:errors="*{amount}"></div>
+    </div>
+    <br/>
+    <button type="submit">처방 입력</button>
+  </form>
+</div>
+
+</body>
+</html>
+
+<style>
+  .error-class {
+    color: red;
+  }
+  .error-input {
+    border-color: red;
+  }
+</style>

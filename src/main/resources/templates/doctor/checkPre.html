@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+
+    <h1><a href="/">[[${appName}]]</a></h1>
+    <h2>[[${patientName}]]님의 처방기록</h2>
+
+    <table>
+        <thead class="ttop">
+        <tr class="table-info">
+            <td width="100px"><b>약물 이름</b></td>
+            <td width="100px"><b>처방량(mg)</b></td>
+            <td width="100px"><b>날짜</b></td>
+            <td width="100px"><b>병원</b></td>
+            <td width="100px"><b>의사</b></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="prescriptionCheckDto, iStat : ${prescriptionCheckDtos}" th:style="${iStat.odd}? 'font-weight: normal;'">
+            <td width="100px" th:text="${prescriptionCheckDto.drugName}"></td>
+            <td width="100px" th:text="${prescriptionCheckDto.amount}"></td>
+            <td width="100px" th:text="${prescriptionCheckDto.date}"></td>
+            <td width="100px" th:text="${prescriptionCheckDto.hospitalName}"></td>
+            <td width="100px" th:text="${prescriptionCheckDto.doctorId}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

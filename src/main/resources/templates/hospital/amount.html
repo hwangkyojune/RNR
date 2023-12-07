@@ -1,0 +1,40 @@
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+
+<title>약물 보유 현황</title>
+
+
+<style>
+  div.mytable {
+    margin: auto;
+    width: 1020px;
+    padding: 10px;
+  }
+</style>
+
+
+<div class="mytable">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <h1><a href="/hospital/">[[${appName}]]</a></h1>
+    </ol>
+  </nav>
+</div>
+
+<h1>약물 보유 현황</h1>
+
+<table class="table table-striped table-primary" style="text-align:center">
+
+  <thead class="ttop">
+  <tr class="table-info">
+    <td width="100px"><b> 약물 명칭</b></td>
+    <td><b>보유량(mg)</b> </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="drugAmountDto, iStat : ${drugAmountDtos}" th:style="${iStat.odd}? 'font-weight: normal;'">
+    <td width="20px" th:text="${drugAmountDto.drugName}"></td>
+    <td th:text="${drugAmountDto.amount}"></td>
+  </tr>
+  </tbody>
+</table>

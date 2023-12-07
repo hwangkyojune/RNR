@@ -1,7 +1,7 @@
-package com.example.Rnr.repository.patient;
+package com.example.Rnr.repository.drug;
 
 import com.example.Rnr.repository.prescription.Prescription;
-import com.example.Rnr.repository.user.User;
+import com.example.Rnr.repository.hospital.HospitalAmount;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -16,26 +16,35 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Patient{
+public class Drug {
     @Id
-    private String id;
+    @Column(name="drug_name",length = 30)
+    private String drugName;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    @JoinColumn(name = "id",referencedColumnName = "id")
-    private User user;
+    @Column(length = 100)
+    private String description;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "patient",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "drug")
     @Builder.Default
-    List<Prescription> prescriptions = new ArrayList<>();
+    private List<HospitalAmount> hospitalAmounts = new ArrayList<>();
+
+    public void addHospitalAmount(HospitalAmount hospitalAmount){
+        hospitalAmounts.add(hospitalAmount);
+
+        if(hospitalAmount.getDrug()!=this){
+            hospitalAmount.setDrug(this);
+        }
+    }
+
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "drug")
+    @Builder.Default
+    private List<Prescription> prescriptions = new ArrayList<>();
 
     public void addPrescription(Prescription prescription){
         prescriptions.add(prescription);
 
-        Patient patient = prescription.getPatient();
-
-        if(patient!=this){
-            prescription.setPatient(this);
+        if(prescription.getDrug()!=this){
+            prescription.setDrug(this);
         }
     }
 
@@ -46,8 +55,8 @@ public class Patient{
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Patient patient = (Patient) o;
-        return getId() != null && Objects.equals(getId(), patient.getId());
+        Drug drug = (Drug) o;
+        return getDrugName() != null && Objects.equals(getDrugName(), drug.getDrugName());
     }
 
     @Override

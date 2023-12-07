@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+
+<div>
+
+  <h1><a href="/">[[${appName}]]</a></h1>
+
+  <h2>보유 약물</h2>
+
+  <table>
+    <thead class="ttop">
+    <tr class="table-info">
+      <td width="200px"><b>약물 이름</b></td>
+      <td><b>보유량(mg)</b></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="drugAmountDto, iStat : ${drugAmountDtos}" th:style="${iStat.odd}? 'font-weight: normal;'">
+      <td width="20px" th:text="${drugAmountDto.drugName}"></td>
+      <td th:text="${drugAmountDto.amount}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
